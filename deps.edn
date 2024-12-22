@@ -1,0 +1,6 @@
+{:paths ["src" "test"]
+ :deps {funcool/promesa {:mvn/version "11.0.678"}
+        thheller/shadow-cljs {:mvn/version "2.28.19"}
+        pez/baldr {:git/url "https://github.com/PEZ/baldr"
+                   :sha "83ba18279b22ff5680fe8fd9be02933d6d05b5d3"}}
+ :aliases {:e2e-test-joyride {:extra-deps {joyride/workspace {:local/root "e2e-test-ws/.joyride"}}}}}

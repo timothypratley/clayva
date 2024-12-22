@@ -1,0 +1,67 @@
+{
+  "name": "clayva",
+  "displayName": "Clayva",
+  "description": "For using Clay to show Kindly visualizations in a webview",
+  "version": "0.0.1",
+  "publisher": "scicloj",
+  "author": {
+    "name": "Timothy Pratley",
+    "email": "timothypratley@gmail.com"
+  },
+  "icon": "assets/extension-icon-128x128.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timothypratley/clayva.git"
+  },
+  "engines": {
+    "vscode": ">=1.75.0",
+    "node": ">=20.18.0"
+  },
+  "enabledApiProposals": [
+    "extensionRuntime",
+    "editorInsets"
+  ],
+  "categories": [],
+  "keywords": [],
+  "activationEvents": [],
+  "main": "out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "clayva.clay-make-namespace-html",
+        "category": "Clayva",
+        "title": "Clay make namespace HTML"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "clayva.clay-make-namespace-html",
+        "key": "ctrl+alt+h h"
+      }
+    ]
+  },
+  "scripts": {
+    "clean": "rimraf .cpcache .shadow-cljs/ out/",
+    "preclean": "npm install",
+    "watch": "npx shadow-cljs -d cider/cider-nrepl:0.50.2 watch :extension :test-watch",
+    "test": "node out/extension-tests.js",
+    "pretest": "npm run compile",
+    "prewatch": "npm run clean",
+    "compile": "npx shadow-cljs compile :extension :test-compile",
+    "precompile": "npm run clean",
+    "release-test": "node out/extension-tests.js",
+    "release": "npx shadow-cljs release :extension :test-compile",
+    "package": "npx vsce package --githubBranch master",
+    "vscode:prepublish": "npm run clean && npm run release"
+  },
+  "dependencies": {
+    "@vscode/codicons": "^0.0.36"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "shadow-cljs": "^2.28.19",
+    "@vscode/vsce": "^3.2.1",
+    "@vscode/test-electron": "^2.4.1",
+    "ovsx": "^0.10.0"
+  }
+}
