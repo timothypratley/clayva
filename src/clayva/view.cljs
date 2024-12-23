@@ -22,13 +22,23 @@
     (set! (-> view .-title) title)
     (set! (-> view .-webview .-html) html)))
 
-(defn show-clay!
-  []
-  (show!
-   "Clayva"
-   "<html>
-<head></head>
+(defn show-uri!
+  [title uri]
+  (show! title
+         (str "<html>
+<head>
+<style type=\"text/css\">
+body, html
+{
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+}
+#content
+{
+    position:absolute; left: 0; right: 0; bottom: 0; top: 0px;
+}
+</style>
+</head>
 <body style=\"margin:0;padding:0;overflow:hidden;\">
-  <iframe src=\"http://localhost:1971\" style=\"width:100%; height:100%; border:none;\"></iframe>
+  <iframe src=\"" uri "\" style=\"width:100%; height:100%; border:none;\"></iframe>
 </body>
-</html>"))
+</html>")))

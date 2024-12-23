@@ -1,21 +1,26 @@
 (ns clayva.extension
-  (:require [clayva.commands :as commands]
+  (:require [clayva.commands]
             [clayva.extension.db :as db]
             [clayva.extension.life-cycle-helpers :as lc-helpers]
-            [clayva.extension.when-contexts :as when-contexts]))
+            [clayva.extension.when-contexts :as when-contexts]
+            [clojure.string :as str]))
 
 ;;;;; Extension activation entry point
 
 (defn ^:export activate [context]
   (js/console.time "activation")
-  (js/console.timeLog "activation" "Extension Template activate START")
-
+  (js/console.timeLog "activation" "Clayva activate START")
   (when context
     (swap! db/!app-db assoc :extension/context context))
-  (lc-helpers/register-command! db/!app-db "clayva.clay-make-namespace-html" #'commands/clay-make-namespace-html-command!+)
+  (doseq [[sym the-var] (ns-publics 'clayva.commands)
+          :let [s (str sym)]
+          :when (str/ends-with? s "!+")]
+    (lc-helpers/register-command! db/!app-db
+                                  (str "clayva." (subs s 0 (- (count s) 2)))
+                                  the-var))
   (when-contexts/set-context!+ db/!app-db :clayva/active? true)
 
-  (js/console.timeLog "activation" "Extension Template activate END")
+  (js/console.timeLog "activation" "Clayva activate END")
   (js/console.timeEnd "activation")
   #js {:v1 {}})
 

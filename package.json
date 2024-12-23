@@ -28,9 +28,24 @@
   "contributes": {
     "commands": [
       {
-        "command": "clayva.clay-make-namespace-html",
+        "command": "clayva.current-form-uri",
         "category": "Clayva",
-        "title": "Clay make namespace HTML"
+        "title": "current form uri"
+      },
+      {
+        "command": "clayva.current-form-html",
+        "category": "Clayva",
+        "title": "current form html"
+      },
+      {
+        "command": "clayva.namespace-uri",
+        "category": "Clayva",
+        "title": "namespace uri"
+      },
+      {
+        "command": "clayva.namespace-html",
+        "category": "Clayva",
+        "title": "namespace html"
       }
     ],
     "keybindings": [
