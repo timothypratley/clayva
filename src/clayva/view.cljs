@@ -1,18 +1,19 @@
 (ns clayva.view
-  ["vscode" :as vscode])
+  (:require ["vscode" :as vscode]))
 
 (defonce kindly-view*
   (atom nil))
 
-(defn open-view!
+(defn ^js open-view!
   "Returns the view if it exists, otherwise creates one"
   []
-  (or (some-> @kindly-view* (doto (.reveal)))
+  (or (some-> @kindly-view* (doto #(.reveal ^js %)))
       (doto (vscode/window.createWebviewPanel "kindly-render"
                                               "Kindly render"
                                               vscode/ViewColumn.One
                                               #js{:enableScripts true})
         (.onDidDispose #(reset! kindly-view* nil))
+        (.reveal)
         (->> (reset! kindly-view*)))))
 
 (defn show!
@@ -23,7 +24,7 @@
 
 (defn show-clay!
   []
-  (show-html!
+  (show!
    "Clayva"
    "<html>
 <head></head>

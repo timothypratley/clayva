@@ -1,6 +1,5 @@
-(ns pez.baldr
-  (:require #?(:cljs [cljs.test :as t]
-               :clj [clojure.test :as t])
+(ns e2e.baldr
+  (:require [clojure.test :as t]
             [clojure.string :as string]))
 
 (defn- default [text]
@@ -38,8 +37,7 @@
                          (str (bullet-color bullet) " " (color message)))))))
 
 (defn- report! [m config]
-  (let [contexts #?(:cljs (:testing-contexts (t/get-current-env))
-                    :clj t/*testing-contexts*)
+  (let [contexts (:testing-contexts (t/get-current-env))
         printouts (get-report m contexts (:seen-contexts @!state) config)]
     (swap! !state assoc :seen-contexts contexts)
     (doseq [printout printouts]
