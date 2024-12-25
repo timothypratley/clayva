@@ -28,6 +28,11 @@
   "contributes": {
     "commands": [
       {
+        "command": "clayva.eval-current-form",
+        "category": "Clayva",
+        "title": "eval current form"
+      },
+      {
         "command": "clayva.current-form-uri",
         "category": "Clayva",
         "title": "current form uri"
